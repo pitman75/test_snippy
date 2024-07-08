@@ -1,0 +1,120 @@
+options:
+  march: "riscv32-unknown-gnu"
+  mcpu: "generic-rv32"
+  mattr: "+zicsr"
+  mabi: "ilp32"
+  model-plugin: "None"
+  num-instrs: 10000
+  o: "snippy_rv32i_burst_mem_store.elf"
+  init-regs-in-elf: true
+  honor-target-abi: true
+  last-instr: "RET"
+
+sections:
+  - name:      text
+    VMA:       0x80000000
+    SIZE:      0x20000
+    LMA:       0x80000000
+    ACCESS:    rx
+  - name:      data
+    VMA:       0x20000000
+    SIZE:      0x7000
+    LMA:       0x20000000
+    ACCESS:    rw
+  - name:      stack
+    VMA:       0x20007800
+    SIZE:      0x400
+    LMA:       0x20007800
+    ACCESS:    rw
+
+histogram:
+    - [ADD, 1.0]
+    - [ADDI, 1.0]
+    - [SUB, 1.0]
+    - [SRA, 2.0]
+    - [SRAI, 3.0]
+    - [SRL, 2.0]
+    - [SRLI, 3.0]
+    - [SLL, 2.0]
+    - [SLLI, 3.0]
+    - [AND, 1.0]
+    - [ANDI, 3.0]
+    - [OR, 1.0]
+    - [ORI, 3.0]
+    - [XOR, 1.0]
+    - [XORI, 3.0]
+    - [LUI, 3.0]
+    - [AUIPC, 2.0]
+    - [SLT, 1.0]
+    - [SLTI, 3.0]
+    - [SLTU, 1.0]
+    - [SLTIU, 3.0]
+    - [LB, 10.0]
+    - [LBU, 10.0]
+    - [LH, 10.0]
+    - [LHU, 10.0]
+    - [LW, 10.0]
+    - [FENCE, 10.0]
+    - [SB, 10.0]
+    - [SH, 10.0]
+    - [SW, 10.0]
+
+branches:
+    permutation: on
+    alignment: 32
+    loop-ratio: 0.5
+    number-of-loop-iterations:
+        min: 2
+        max: 32
+    max-depth:
+        if: 500
+        loop: 4
+    distance:
+        min: 1
+        max: 100
+    pc:
+        min: 0
+        max: 120
+
+burst:
+    mode: custom
+    min-size: 10
+    max-size: 30
+    groupings:
+        - [ LB ]
+        - [ LBU ]
+        - [ LH ]
+        - [ LHU ]
+        - [ FENCE, LW ]
+        - [ SB ]
+        - [ SH ]
+        - [ SW ]
+        - [ SB, LB ]
+        - [ SB, LBU ]
+        - [ SB, LH ]
+        - [ SB, LHU ]
+        - [ SB, LW ]
+        - [ SB, SH ]
+        - [ SB, SW ]
+        - [ SH, LB ]
+        - [ SH, LBU ]
+        - [ SH, LH ]
+        - [ SH, LHU ]
+        - [ SH, LW ]
+        - [ SH, SB ]
+        - [ SH, SW ]
+        - [ SW, LB ]
+        - [ SW, LBU ]
+        - [ SW, LH ]
+        - [ SW, LHU ]
+        - [ SW, LW ]
+        - [ SW, SB ]
+        - [ SW, SH ]
+
+access-ranges:
+   - start: 0x20000000
+     size: 0x7000
+     stride: 16
+     first-offset: 0
+     last-offset: 2
+

@@ -1,0 +1,67 @@
+options:
+  march: "riscv32-unknown-gnu"
+  mcpu: "generic-rv32"
+  mattr: "+zicsr"
+  mabi: "ilp32"
+  model-plugin: "None"
+  num-instrs: 10000
+  o: "snippy_rv32i_simple.elf"
+  init-regs-in-elf: true
+  honor-target-abi: true
+  last-instr: "RET"
+
+sections:
+  - name:      text
+    VMA:       0x80000000
+    SIZE:      0x20000
+    LMA:       0x80000000
+    ACCESS:    rx
+  - name:      data
+    VMA:       0x20000000
+    SIZE:      0x7000
+    LMA:       0x20000000
+    ACCESS:    rw
+  - name:      stack
+    VMA:       0x20007800
+    SIZE:      0x400
+    LMA:       0x20007800
+    ACCESS:    rw
+
+histogram:
+    - [ADD, 3.0]
+    - [ADDI, 5.0]
+    - [SUB, 3.0]
+    - [SRA, 3.0]
+    - [SRAI, 5.0]
+    - [SRL, 3.0]
+    - [SRLI, 5.0]
+    - [SLL, 3.0]
+    - [SLLI, 5.0]
+    - [AND, 3.0]
+    - [ANDI, 5.0]
+    - [OR, 3.0]
+    - [ORI, 5.0]
+    - [XOR, 3.0]
+    - [XORI, 5.0]
+    - [LUI, 1.0]
+    - [AUIPC, 1.0]
+    - [SLT, 3.0]
+    - [SLTI, 5.0]
+    - [SLTU, 3.0]
+    - [SLTIU, 5.0]
+    - [LB, 10.0]
+    - [LBU, 10.0]
+    - [LH, 10.0]
+    - [LHU, 10.0]
+    - [LW, 10.0]
+    - [SB, 10.0]
+    - [SH, 10.0]
+    - [SW, 10.0]
+
+access-ranges:
+   - start: 0x20000000
+     size: 0x7000
+     stride: 16
+     first-offset: 0
+     last-offset: 2
+
