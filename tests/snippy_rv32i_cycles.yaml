@@ -57,6 +57,14 @@ histogram:
     - [SB, 5.0]
     - [SH, 6.0]
     - [SW, 10.0]
+    - [BEQ, 1.0]
+    - [BNE, 0.5]
+    - [BLT, 0.5]
+    - [BGE, 0.2]
+    - [BLTU, 0.5]
+    - [BGEU, 0.2]
+    - [JAL, 0.1]
+    - [JALR, 0.1]
 
 branches:
     permutation: on
