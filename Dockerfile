@@ -18,7 +18,9 @@ RUN apt-get update && \
         && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-RUN git clone https://github.com/syntacore/snippy.git
+RUN wget -c https://github.com/syntacore/snippy/archive/refs/tags/snippy-1.0.tar.gz
+RUN tar -xzf snippy-1.0.tar.gz
+RUN ln -s ./snippy-snippy-1.0 snippy
 COPY ./release.cmake /app/snippy/
 WORKDIR /app/snippy
 
